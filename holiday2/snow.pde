@@ -46,13 +46,16 @@ class Sled {
     sled.resize(360, 140);
   }
   void show(PImage key) {
-    image(key, sx, 200);
+    image(key, sx, 125);
+  }
+  void reset(){
+    sx=-400;
   }
   void move() {
     sx+=3;
   }
   boolean ios() {
-    if (sx>2000) {
+    if (sx>1500) {
       return true;
     } else {
       return false;
@@ -69,13 +72,16 @@ class Backsled {
     sled.resize(360, 140);
   }
   void show(PImage key) {
-    image(key, sx2, 200);
+    image(key, sx2, 125);
   }
   void move() {
     sx2-=3;
   }
+  void reset(){
+    sx2=1300;
+  }
   boolean ios() {
-    if (sx2>1200) {
+    if (sx2<-400) {
       return true;
     } else {
       return false;

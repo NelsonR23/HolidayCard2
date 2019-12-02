@@ -12,7 +12,7 @@ Backsled sled2;
 SnowFlake [] sf2 = new SnowFlake[150];
 void setup() {
   size(1200, 800);
-  
+
   for (int i=0; i<sf2.length; i++) {
     sf2[i]=new SnowFlake();
   }
@@ -20,6 +20,7 @@ void setup() {
   sled2=new Backsled();
 }
 void draw() {
+  clear();
   background(red, green, blue);
   planet();
   for (int i=0; i<sf2.length; i++) {
@@ -28,58 +29,84 @@ void draw() {
     //sf2[i].grow();
   }
 
-sled1.show(sled);
-sled1.move();
-if(sled1.ios()){
-sled2.show(dels);
-sled2.move();
-} 
+  sled1.show(sled);
+  sled1.move();
+  if (sled1.ios()) {
+    sled2.show(dels);
+    sled2.move();
+    if(sled2.ios()){
+     sled1.reset();
+     sled2.reset();
+    }
+  } 
   words();
   grow(); 
-  
+
   button();
   button2();
-  
-fill(255,0,0);
-stroke(200);
 
-//house
-fill(148,0,211);
-rect(400,800,500,-400);
+  fill(255, 0, 0);
+  stroke(200);
 
-//door
-fill(150,75,0);
-rect(750,650,75,150);
-fill(218,165,32);
-ellipse(810,720,10,10);
+  //house
+  fill(148, 0, 211);
+  rect(400, 800, 500, -400);
 
-
-
-//window
-fill(0);
-rect(450,630,225,150);
-fill(255,255,255);
-line(565,630,565,780);
-line(450,700,365+310,700);
+  //door
+  fill(150, 75, 0);
+  rect(750, 650, 75, 150);
+  fill(218, 165, 32);
+  ellipse(810, 720, 10, 10);
 
 
 
-//chimney
-fill(186, 32, 13);
-rect(700,250,50,150);
+  //window
+  fill(0);
+  rect(450, 630, 225, 150);
+  fill(255, 255, 255);
+  line(565, 630, 565, 780);
+  line(450, 700, 365+310, 700);
 
 
-for(int i=0;i<10;i++){
-  for(int j=0;j<500;j+=10){
-  lights.add(i,new Light());
-  lights.get(i).show(400+j+5,500,10);
-  
-}
 
-}
-for(int b=0;b<10;b++){
-lights.get(b).flash();
-}
+  //chimney
+  stroke(0);
+  fill(186, 32, 13);
+  rect(750, 300, 70, 100);
+  //bricks
+  line(750, 350, 820, 350);
+  line(750, 325, 820, 325);
+  line(750, 375, 820, 375);
+  line(785, 300, 785, 325);
+  line(770, 325, 770, 350);
+  line(800, 325, 800, 350);
+  line(785, 350, 785, 375);
+  line(770, 375, 770, 400);
+  line(800, 375, 800, 400);
+
+  for (int i=0; i<10; i++) {
+    for (int j=0; j<500; j+=10) {
+      lights.add(i, new Light());
+      lights.get(i).show(400+j+5, 500, 10);
+    }
+  }
+  for (int i=0; i<10; i++) {
+    for (int j=0; j<500; j+=10) {
+      lights.add(i, new Light());
+      lights.get(i).show(400+j+5, 550, 10);
+    }
+  }
+  for (int i=0; i<10; i++) {
+    for (int j=0; j<500; j+=10) {
+      lights.add(i, new Light());
+      lights.get(i).show(400+j+5, 450, 10);
+    }
+  }
+  println(lights.size());
+  for (int b=0; b<10; b++) {
+   lights.get(b).flash();
+  }
+ 
 }
 void sign() {
   //noStroke();
@@ -153,7 +180,6 @@ void button() {
   if (mouseX<775&&mouseX>700&&mouseY<45&&mouseY>20) {
     cursor(HAND);
   } else {
-   
   }
 }
 void button2() {
