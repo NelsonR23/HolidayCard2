@@ -3,13 +3,17 @@ ArrayList<Light> lights= new ArrayList<Light>();
 float grow=30;
 float grow2=30;
 boolean day;
-int x=900;
+float x=900;
 int red;
+float sp;
 int green;
 int blue;
+
+PFont font;
+
 Sled sled1;
 Backsled sled2;
-SnowFlake [] sf2 = new SnowFlake[150];
+SnowFlake [] sf2 = new SnowFlake[200];
 void setup() {
   size(1200, 800);
 
@@ -18,9 +22,15 @@ void setup() {
   }
   sled1=new Sled();
   sled2=new Backsled();
+  for (int j=0; j<500; j+=10) {
+    for (int i=0; i<10; i++) {
+      lights.add(i, new Light());
+    }
+  }
+  font= loadFont("Papyrus-48.vlw");
+  
 }
 void draw() {
-  clear();
   background(red, green, blue);
   planet();
   for (int i=0; i<sf2.length; i++) {
@@ -34,9 +44,9 @@ void draw() {
   if (sled1.ios()) {
     sled2.show(dels);
     sled2.move();
-    if(sled2.ios()){
-     sled1.reset();
-     sled2.reset();
+    if (sled2.ios()) {
+      sled1.reset();
+      sled2.reset();
     }
   } 
   words();
@@ -49,9 +59,12 @@ void draw() {
   stroke(200);
 
   //house
+  pushMatrix();
+  stroke(0);
   fill(148, 0, 211);
   rect(400, 800, 500, -400);
-
+  popMatrix();
+  stroke(200);
   //door
   fill(150, 75, 0);
   rect(750, 650, 75, 150);
@@ -86,27 +99,27 @@ void draw() {
 
   for (int i=0; i<10; i++) {
     for (int j=0; j<500; j+=10) {
-      lights.add(i, new Light());
+
       lights.get(i).show(400+j+5, 500, 10);
     }
   }
+
   for (int i=0; i<10; i++) {
     for (int j=0; j<500; j+=10) {
-      lights.add(i, new Light());
+
       lights.get(i).show(400+j+5, 550, 10);
     }
   }
   for (int i=0; i<10; i++) {
     for (int j=0; j<500; j+=10) {
-      lights.add(i, new Light());
+
       lights.get(i).show(400+j+5, 450, 10);
     }
   }
-  println(lights.size());
+
   for (int b=0; b<10; b++) {
-   lights.get(b).flash();
+    lights.get(b).flash();
   }
- 
 }
 void sign() {
   //noStroke();
@@ -163,13 +176,21 @@ void mousePressed() {
 
 
 void words() {
+  boolean back=false;
+ if(!back){
+  sp=1.5;
+ }
   textSize(30);
   fill(160, 32, 240);
-  text("Happy Holidays!", x, 770);
-  if (x<-250) {
-    x=850;
+  textFont(font, 48);
+  text("Happy Holidays!", x, 700);
+  if (x<=10) {
+    sp=0;
+    back=true;
+  }else if(back){
+    //sp=2;
   }
-  x-=.9;
+  x-=sp;
   textSize(45);
   fill(130, 0, 170);
 }
